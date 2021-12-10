@@ -1,7 +1,0 @@
-Login: [ UserName: test ] AT 2021-12-08 09:58:13 UTC [ Attempt Successful ]
-Login: [ UserName: test ] AT 2021-12-08 09:59:35 UTC [ Attempt Successful ]
-Login: [ UserName: test ] AT 2021-12-08 10:01:10 UTC [ Attempt Successful ]
-Login: [ UserName: test ] AT 2021-12-08 10:38:30 UTC [ Attempt Successful ]
-Login: [ UserName: test ] AT 2021-12-08 10:48:51 UTC [ Attempt Successful ]
-Login: [ UserName: test ] AT 2021-12-08 10:49:59 UTC [ Attempt Successful ]
-Login: [ UserName: daf ] AT 2021-12-08 10:51:17 UTC [ Attempt Unsuccessful ]
