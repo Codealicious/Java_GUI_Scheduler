@@ -53,13 +53,19 @@ public class AppointmentManager {
 
     private static ArrayList<String> buildTimesList() {
 
-        ZonedDateTime zt = BUSINESS_HR_OPEN_LOCAL;
+        LocalTime zt = BUSINESS_HR_OPEN_LOCAL.toLocalTime();
         var times = new ArrayList<String>();
         times.add(TimeUtil.toTimeString(zt));
 
-        for(int i = 0; i < MAX_APPOINTMENTS; i++) {
+        for(int i = 0, index = 1; i < MAX_APPOINTMENTS; i++, index++) {
+
             zt = zt.plusMinutes(15);
-            times.add(TimeUtil.toTimeString(zt));
+
+            if(zt.equals(LocalTime.MIDNIGHT))
+                index = 0;
+
+            times.add(index, TimeUtil.toTimeString(zt));
+
         }
 
         return times;
