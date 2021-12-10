@@ -43,7 +43,7 @@ in the AppointmentManger's filterAppointmentsByYear method. More info is include
 &nbsp;&nbsp;&nbsp;&nbsp; Java 11<br>
 &nbsp;&nbsp;&nbsp;&nbsp; JDBC Driver: MySQL Connector/J 8.0.25<br><br>
 &nbsp;&nbsp;NOTE: VM options must be set with-<br>
---module-path C:\Users\LabUser\Desktop\openjfx-11.0.2_windows-x64_bin-sdk\javafx-sdk-11.0.2\lib --add-modules javafx.controls,javafx.fxml<br>
+--module-path C:\Users\LabUser\Desktop\openjfx-11.0.2_windows-x64_bin-sdk\javafx-sdk-11.0.2\lib --add-modules javafx.controls,javafx.fxml<br><br>
 &nbsp;&nbsp;IDE: <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IntelliJ IDEA 2021.2.3 (Community Edition)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build #IC-212.5457.46, built on October 12, 2021<br>
