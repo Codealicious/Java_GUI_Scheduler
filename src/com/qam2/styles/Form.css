@@ -1,0 +1,19 @@
+.input-field {
+     -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+
+.label {
+    -fx-font-size: 16px;
+}
+
+.error {
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: red;
+    -fx-border-radius: 3px;
+}
+
+.error-label {
+    -fx-text-fill: red;
+}
+
