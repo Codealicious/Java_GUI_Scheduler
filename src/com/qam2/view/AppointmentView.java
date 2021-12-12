@@ -49,7 +49,7 @@ public final class AppointmentView extends VBox {
         all.setToggleGroup(group);
 
         group.selectedToggleProperty().addListener((ob, ovl, nvl) -> {
-            updateView();
+            refreshView();
         });
 
         group.selectToggle(all);
@@ -72,24 +72,23 @@ public final class AppointmentView extends VBox {
                 table.setItems(FXCollections.observableList(manager.getAppointments()));
                 break;
         }
-    }
 
-    private boolean updateView() {
-        filterAppointments(((RadioButton) group.getSelectedToggle()).getText());
-        return true;
+        table.refresh();
     }
 
     private void buildView() {
 
         var id = new TableColumn<Appointment, Integer>("ID");
-        var title = new TableColumn<Appointment, Integer>("Title");
-        var description = new TableColumn<Appointment, Integer>("Description");
-        var location = new TableColumn<Appointment, Integer>("Location");
-        var type = new TableColumn<Appointment, Integer>("Type");
-        var start = new TableColumn<Appointment, Integer>("Start Time");
-        var end = new TableColumn<Appointment, Integer>("End Time");
-        var customer = new TableColumn<Appointment, Integer>("Customer");
-        var contact = new TableColumn<Appointment, Integer>("Contact");
+        var title = new TableColumn<Appointment, String>("Title");
+        var description = new TableColumn<Appointment, String>("Description");
+        var location = new TableColumn<Appointment, String>("Location");
+        var type = new TableColumn<Appointment, String>("Type");
+        var start = new TableColumn<Appointment, String>("Start Time");
+        var end = new TableColumn<Appointment, String>("End Time");
+        var customer = new TableColumn<Appointment, String>("Customer");
+        var customerID = new TableColumn<Appointment, Integer>("Customer ID");
+        var contact = new TableColumn<Appointment, String>("Contact");
+        var userID = new TableColumn<Appointment, Integer>("User ID");
 
         id.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
         title.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -99,7 +98,9 @@ public final class AppointmentView extends VBox {
         start.setCellValueFactory(new PropertyValueFactory<>("startDisplay"));
         end.setCellValueFactory(new PropertyValueFactory<>("endDisplay"));
         customer.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        customerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         contact.setCellValueFactory(new PropertyValueFactory<>("contactName"));
+        userID.setCellValueFactory(new PropertyValueFactory<>("userID"));
 
         id.setResizable(false);
         id.setReorderable(false);
@@ -133,11 +134,19 @@ public final class AppointmentView extends VBox {
         customer.setReorderable(false);
         customer.setPrefWidth(140);
 
+        customerID.setResizable(false);
+        customerID.setReorderable(false);
+        customerID.setPrefWidth(75);
+
         contact.setResizable(false);
         contact.setReorderable(false);
         contact.setPrefWidth(130);
 
-        table.getColumns().addAll(id, title, description, location, type, start, end, customer, contact);
+        userID.setResizable(false);
+        userID.setReorderable(false);
+        userID.setPrefWidth(50);
+
+        table.getColumns().addAll(id, title, description, location, type, start, end, customer, customerID, contact, userID);
         getChildren().add(table);
     }
 
@@ -152,26 +161,37 @@ public final class AppointmentView extends VBox {
     public Appointment getSelected() { return table.getSelectionModel().getSelectedItem(); }
 
     /**
+     * Updates the view when any change is made to either an appointment or customer.
+     * Always returns true so that this method call can easily be added into conditional expressions
+     * dependent on the boolean result of a database controller method.
+     * @return True
+     */
+    public boolean refreshView() {
+        filterAppointments(((RadioButton) group.getSelectedToggle()).getText());
+        return true;
+    }
+
+    /**
      * @param appt The Appointment add.
      * @return True if the Appointment was successfully added and the view updated, false otherwise.
      */
-    public boolean add(Appointment appt) { return manager.add(appt) && updateView(); }
+    public boolean add(Appointment appt) { return manager.add(appt) && refreshView(); }
 
     /**
      * @param appt The Appointment to update.
      * @return True if the Appointment was successfully updated and the view updated, false otherwise.
      */
-    public boolean update(Appointment appt) { return manager.update(appt) && updateView(); }
+    public boolean update(Appointment appt) { return manager.update(appt) && refreshView(); }
 
     /**
      * @return True if the currently selected Appointment in the tabular view was deleted successfully and the view updated, false otherwise.
      */
-    public boolean delete() { return manager.delete(table.getSelectionModel().getSelectedItem()) && updateView(); }
+    public boolean delete() { return manager.delete(table.getSelectionModel().getSelectedItem()) && refreshView(); }
 
     /**
      * @param c Customer for whom all Appointments are to be deleted.
      * @return True if all Appointments for given Customer were successfully deleted and the view updated, false otherwise.
      */
-    public boolean deleteAllForCustomer(Customer c) { return manager.deleteAllForCustomer(c) && updateView(); }
+    public boolean deleteAllForCustomer(Customer c) { return manager.deleteAllForCustomer(c) && refreshView(); }
 
 }

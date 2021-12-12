@@ -29,7 +29,7 @@ public final class CustomerView extends VBox {
     private CustomerView() {
         buildView();
         getChildren().add(table);
-        updateView();
+        refreshView();
     }
 
     private void buildView() {
@@ -82,11 +82,6 @@ public final class CustomerView extends VBox {
         table.getColumns().addAll(id, name, address, postalCode, division, country, phone);
     }
 
-    private boolean updateView() {
-        table.setItems(FXCollections.observableList(manager.getCustomers()));
-        return true;
-    }
-
     /**
      * @return Single instance of CustomerView.
      */
@@ -100,19 +95,34 @@ public final class CustomerView extends VBox {
     public Customer getSelected() { return table.getSelectionModel().getSelectedItem(); }
 
     /**
+     * Updates the view when any change is made to a customer.
+     * Updates to this view will trigger updates to the appointment since it displays associated customer data that
+     * may have changed.
+     * Always returns true so that this method call can easily be added into conditional expressions
+     * dependent on the boolean result of a database controller method.
+     * @return True
+     */
+    public boolean refreshView() {
+        table.setItems(FXCollections.observableList(manager.getCustomers()));
+        table.refresh();
+        AppointmentView.getInstance().refreshView();
+        return true;
+    }
+
+    /**
      * @param c Customer to add.
      * @return True if the Customer was added successfully and the view updated, false otherwise.
      */
-    public boolean add(Customer c) { return manager.add(c) && updateView(); }
+    public boolean add(Customer c) { return manager.add(c) && refreshView(); }
 
     /**
      * @param c Customer to update.
      * @return True if the Customer was successfully updated and the view updated, false otherwise.
      */
-    public boolean update(Customer c) { return manager.update(c) && updateView(); }
+    public boolean update(Customer c) { return manager.update(c) && refreshView(); }
 
     /**
      * @return True if the currently selected Customer was deleted successfully and the view updated, false otherwise.
      */
-    public boolean delete() { return manager.delete(table.getSelectionModel().getSelectedItem()) && updateView(); }
+    public boolean delete() { return manager.delete(table.getSelectionModel().getSelectedItem()) && refreshView(); }
 }
