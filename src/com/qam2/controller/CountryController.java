@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * Class providing Country record database functionality.
+ * Provides Country record database functionality.
  * All methods are static, class not intended to be instantiated.
  * Facilitates reading all Country records. Country records are read-only.
  * @author Alex Hanson

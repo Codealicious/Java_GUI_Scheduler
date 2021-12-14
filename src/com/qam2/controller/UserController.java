@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * Class providing User record database functionality.
+ * Provides User record database functionality.
  * All methods are static, class not intended to be instantiated.
  * Facilitates read operations on User records, User records are read-only.
  * @author Alex Hanson

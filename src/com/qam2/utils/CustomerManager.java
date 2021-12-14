@@ -40,9 +40,17 @@ public class CustomerManager {
     /**
      * @return A list of all Customer objects.
      */
-    public ArrayList<Customer> getCustomers() { return new ArrayList<>(customers); }
+    public ArrayList<Customer> getAll() { return new ArrayList<>(customers); }
 
     /**
+     * Uses Stream API and method references to filter Customer names out of an ArrayList of Customers.
+     * The intermediate stream operation map() takes an implementation of the functional interface Function&lt;T, R&gt;
+     * as a parameter. A method reference Customer::getCustomerName was used to implement the single abstract method R apply(T).
+     * The parameter type T was deduced by the stream to be a Customer object, while return type R is the return type of
+     * getCustomerName() which is String.
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
      * @return A list of all customer names.
      */
     public ArrayList<String> getCustomerList() {
@@ -111,7 +119,7 @@ public class CustomerManager {
         return false;
     }
 
-    /**
+    /** Deletes a given Customer and all associated Appointments if any.
      * @param c Customer to delete.
      * @return True if the Customer was successfully deleted, false otherwise.
      */
@@ -127,6 +135,4 @@ public class CustomerManager {
         }
         return false;
     }
-
-
 }

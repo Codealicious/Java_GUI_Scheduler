@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * Class providing Appointment record database functionality.
+ * Provides Appointment record database functionality.
  * All methods are static, class not intended to be instantiated.
  * Facilitates CRUD operations on Appointments: read, add, update, and delete.
  * @author Alex Hanson
@@ -174,7 +174,7 @@ public abstract class AppointmentController {
 
     /**
      * Deletes all the Appointments associated with a Customer.
-     * @param c The Customer whose associated Appointments are to be deleted.
+     * @param c The Customer for which associated Appointments are to be deleted.
      * @return True if the Appointments are deleted, false otherwise.
      */
     public static boolean deleteAllFor(Customer c) { return delete(c.getCustomerID(), "DELETE FROM appointments WHERE Customer_ID = ?"); }

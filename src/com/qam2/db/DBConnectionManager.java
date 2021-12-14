@@ -22,7 +22,8 @@ public final class DBConnectionManager {
     private DBConnectionManager() {}
 
     /**
-     * @return The single instance of the DBConnectionManager.
+     * Returns the single instance of DBConnectionManager
+     * @return DBConnectionManager.
      */
     public static DBConnectionManager getInstance() {
          return instance == null ? (instance = new DBConnectionManager()) : instance;
@@ -37,7 +38,8 @@ public final class DBConnectionManager {
     }
 
     /**
-     * @return The single instance of the database Connection.
+     * Returns the single instance of the database Connection.
+     * @return database Connection.
      */
     public Connection getConnection() {
         if(con == null) {

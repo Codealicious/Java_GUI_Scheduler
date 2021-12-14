@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * Class providing Contact record database functionality.
+ * Provides Contact record database functionality.
  * All methods are static, class not intended to be instantiated.
  * Facilitates reading all Contact records. Contact records are read-only.
  * @author Alex Hanson

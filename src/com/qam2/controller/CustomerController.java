@@ -4,13 +4,12 @@ import com.qam2.db.DBConnectionManager;
 import com.qam2.model.Customer;
 import com.qam2.utils.AppointmentManager;
 import com.qam2.utils.time.TimeUtil;
-import com.qam2.view.AppointmentView;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * Class providing Customer record database functionality.
+ * Provides Customer record database functionality.
  * All methods are static, class not intended to be instantiated.
  * Facilitates CRUD operations on Customers: read, add, update, and delete.
  * @author Alex Hanson
@@ -160,7 +159,7 @@ public abstract class CustomerController {
         if(c != null) {
 
             if (AppointmentManager.getInstance().hasAppointments(c))
-                return AppointmentView.getInstance().deleteAllForCustomer(c) && delete(c.getCustomerID());
+                return AppointmentManager.getInstance().deleteAllFor(c) && delete(c.getCustomerID());
             else
                 return delete(c.getCustomerID());
         }

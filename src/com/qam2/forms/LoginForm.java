@@ -20,7 +20,7 @@ import java.io.PrintWriter;
 import java.util.ResourceBundle;
 
 /**
- * Class provides login form for scheduler application.
+ * Provides login form for scheduler application.
  * @author Alex Hanson
  */
 public final class LoginForm extends VBox {
@@ -29,7 +29,7 @@ public final class LoginForm extends VBox {
     private final ResourceBundle rb;
 
     /**
-     * Creates the LoginForm with layout.
+     * Creates the login form.
      */
     public LoginForm() {
 

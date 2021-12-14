@@ -24,12 +24,14 @@ import javafx.stage.Stage;
  * Provides tabular views for customer and appointment data.
  * Provides buttons to: generate reports; add, delete, or update customer and appointment records; logout.
  * @author Alex Hanson
- * @version 1.0
+ * @version 2.0
  */
 public final class MainDisplay extends VBox {
 
     private Stage stage;
     private Tab customerTab ;
+    private CustomerView cv;
+    private AppointmentView av;
 
     /**
      * Creates a new MainDisplay that acts as the main GUI component of the scheduler application
@@ -37,6 +39,8 @@ public final class MainDisplay extends VBox {
     public MainDisplay() {
 
         setPadding(new Insets(50));
+        cv = new CustomerView();
+        av = new AppointmentView();
 
         buildLogoutBtn();
         buildReportsBtn();
@@ -79,8 +83,8 @@ public final class MainDisplay extends VBox {
     private void buildRecordsTabView() {
 
         var mainView = new TabPane();
-        var appointmentsTab = new Tab("Appointments", AppointmentView.getInstance());
-        customerTab = new Tab("Customers", CustomerView.getInstance());
+        var appointmentsTab = new Tab("Appointments", av);
+        customerTab = new Tab("Customers", cv);
 
         customerTab.setClosable(false);
         appointmentsTab.setClosable(false);
@@ -105,34 +109,43 @@ public final class MainDisplay extends VBox {
 
         add.setOnAction(e -> {
             if(customerTab.isSelected()) {
-                new CustomerForm(stage);
+                new CustomerForm(stage, null).display();
+                cv.refreshView();
             }else {
-                new AppointmentForm(stage);
+                new AppointmentForm(stage, null).display();
+                av.refreshView();
             }
         });
 
         update.setOnAction(e -> {
-            if(customerTab.isSelected() && CustomerView.getInstance().getSelected() != null) {
-                new CustomerForm(CustomerView.getInstance().getSelected(), stage);
-            }else if(AppointmentView.getInstance().getSelected() != null) {
-                new AppointmentForm(AppointmentView.getInstance().getSelected(), stage);
+            if(customerTab.isSelected() && cv.getSelected() != null) {
+                new CustomerForm(stage, cv.getSelected()).display();
+                cv.refreshView();
+            }else if(av.getSelected() != null) {
+                new AppointmentForm(stage, av.getSelected()).display();
             }
+
+            av.refreshView();
         });
 
         delete.setOnAction(e -> {
            if(customerTab.isSelected() ) {
                deleteCustomer();
+               cv.refreshView();
+
            }else {
                deleteAppointment();
            }
+
+            av.refreshView();
         });
 
         getChildren().add(LayoutUtil.buildHBoxContainer(10, Pos.TOP_RIGHT, new Insets(15, 0, 0, 0), add, update, delete));
     }
 
-    private static void deleteCustomer() {
+    private void deleteCustomer() {
 
-        var cust = CustomerView.getInstance().getSelected();
+        var cust = cv.getSelected();
 
         if(cust != null) {
 
@@ -141,7 +154,7 @@ public final class MainDisplay extends VBox {
             confirm.setContentText("Delete Customer?" + "\t\tID: " + cust.getCustomerID() + "\t\tName: " + cust.getCustomerName());
             confirm.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    if (CustomerView.getInstance().delete()) {
+                    if (CustomerManager.getInstance().delete(cust)) {
                         var success = new Alert(Alert.AlertType.INFORMATION);
                         success.setHeaderText("SUCCESS!");
                         success.setContentText("Customer Successfully Deleted.\nName: " + cust.getCustomerName());
@@ -157,9 +170,9 @@ public final class MainDisplay extends VBox {
         }
     }
 
-    private static void deleteAppointment() {
+    private void deleteAppointment() {
 
-        var appt = AppointmentView.getInstance().getSelected();
+        var appt = av.getSelected();
 
         if(appt != null) {
 
@@ -168,7 +181,7 @@ public final class MainDisplay extends VBox {
             confirm.setContentText("Delete Appointment?" + "\t\tID: " + appt.getAppointmentID());
             confirm.showAndWait().ifPresent(response -> {
                 if(response == ButtonType.OK) {
-                    if (AppointmentView.getInstance().delete()) {
+                    if (AppointmentManager.getInstance().delete(appt)) {
                         var success = new Alert(Alert.AlertType.INFORMATION);
                         success.setHeaderText("SUCCESS!");
                         success.setContentText("Appointment Cancelled:\nID: " + appt.getAppointmentID() + "\nType: " + appt.getType());

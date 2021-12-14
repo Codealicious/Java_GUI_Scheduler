@@ -4,9 +4,9 @@ import com.qam2.model.Customer;
 import com.qam2.utils.LayoutUtil;
 import com.qam2.utils.FormUtil;
 import com.qam2.utils.CountriesAndDivisions;
+import com.qam2.utils.CustomerManager;
 import com.qam2.utils.time.TimeUtil;
 import com.qam2.utils.UserManager;
-import com.qam2.view.CustomerView;
 
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import java.time.ZonedDateTime;
 
 /**
- * Class provides a from for adding or updating a Customer record.
+ * Provides a form for adding or updating a Customer record.
  * @author Alex Hanson.
  */
 public class CustomerForm extends VBox {
@@ -49,29 +49,20 @@ public class CustomerForm extends VBox {
     private final Customer customer;
 
     /**
-     * Creates form in add mode.
+     * Creates a form for adding or updating a Customer.
      * @param owner The parent window of this form.
+     * @param customer If not null, a Customer to be updated.
      */
-    public CustomerForm(Stage owner) {
-        this(null, owner);
-    }
-
-    /**
-     * Creates form in update mode.
-     * @param cust The Customer to be updated.
-     * @param owner The parent window of this form.
-     */
-    public CustomerForm(Customer cust, Stage owner) {
+    public CustomerForm( Stage owner, Customer customer) {
 
         super(10);
         setPadding(new Insets(50, 40, 20, 40));
 
-        if(cust != null) {
-            customer = new Customer(cust);
+        this.customer = customer;
+
+        if(this.customer != null) {
             creationDate = customer.getCreateDate();
             createdBy = customer.getCreatedBy();
-        }else {
-            customer = null;
         }
 
         configureTextFields();
@@ -85,7 +76,6 @@ public class CustomerForm extends VBox {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Customer Form");
         stage.setScene(new Scene(this, 400, 460));
-        stage.show();
     }
 
     private void configureTextFields() {
@@ -186,8 +176,10 @@ public class CustomerForm extends VBox {
         } else {
             add.setText("Update");
             add.setOnAction(e -> {
-                if (isValid() && isChanged())
+                if (isValid() && isChanged()) {
                     update();
+                    stage.close();
+                }
             });
         }
 
@@ -229,7 +221,7 @@ public class CustomerForm extends VBox {
 
     private void add() {
 
-        if(CustomerView.getInstance().add(addCustomer())) {
+        if(CustomerManager.getInstance().add(addCustomer())) {
             var success = new Alert(Alert.AlertType.INFORMATION);
             success.setHeaderText("SUCCESS!");
             success.setContentText("Customer Successfully Created.");
@@ -249,12 +241,11 @@ public class CustomerForm extends VBox {
         confirm.setContentText("Update Customer?" + "\t\tID: " + id.getText());
         confirm.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                if(CustomerView.getInstance().update(updateCustomer())) {
+                if(CustomerManager.getInstance().update(updateCustomer())) {
                     var success = new Alert(Alert.AlertType.INFORMATION);
                     success.setHeaderText("SUCCESS!");
                     success.setContentText("Customer Successfully Updated.");
                     success.showAndWait();
-                    stage.close();
                 } else {
                     var failure = new Alert(Alert.AlertType.ERROR);
                     failure.setHeaderText("Opps Something Went Wrong!");
@@ -295,4 +286,9 @@ public class CustomerForm extends VBox {
                 CountriesAndDivisions.getDivisionID(divisions.getValue())
         );
     }
+
+    /**
+     * Displays the form and waits for it to close so that Views in the calling context can be refreshed.
+     */
+    public void display() { stage.showAndWait(); }
 }

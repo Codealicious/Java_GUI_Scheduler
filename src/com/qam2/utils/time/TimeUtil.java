@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 public abstract class TimeUtil {
 
     /**
+     * Formats a ZonedDateTime as yyyy-MM-dd HH:mm:ss.
      * @param zt ZonedDateTime to be formatted.
      * @return A string in the format yyyy-MM-dd HH:mm:ss
      */
@@ -18,6 +19,7 @@ public abstract class TimeUtil {
     }
 
     /**
+     * Formats a ZonedDateTime as yyyy-MM-dd HH:mm:ss z
      * @param zt ZonedDateTime to be formatted.
      * @return A string in the format yyyy-MM-dd HH:mm:ss z
      */
@@ -26,6 +28,7 @@ public abstract class TimeUtil {
     }
 
     /**
+     * Formats a ZonedDateTime as hh:mm a
      * @param zt ZonedDateTime to be formatted.
      * @return String in the format hh:mm a
      */
@@ -34,6 +37,7 @@ public abstract class TimeUtil {
     }
 
     /**
+     * Formats a LocalTime as hh:mm a
      * @param lt LocalTime to be formatted.
      * @return String in the format hh:mm a
      */
@@ -42,12 +46,14 @@ public abstract class TimeUtil {
     }
 
     /**
+     * Formats a ZonedDateTime for tabular display as MM/dd/yy hh:mm a
      * @param zt ZonedDateTime to be formatted.
      * @return String in the format MM/dd/yy hh:mm a
      */
     public static String toAppointmentTimeDisplay(ZonedDateTime zt) { return zt.format(DateTimeFormatter.ofPattern("MM/dd/yy  hh:mm a")); }
 
     /**
+     * Converts a given ZonedDateTime to a given TimeZone.
      * @param zt ZonedDateTime to be converted.
      * @param tz TimeZone to convert to.
      * @return ZonedDateTime instance converted to the given TimeZone.
@@ -56,8 +62,8 @@ public abstract class TimeUtil {
         return ZonedDateTime.ofInstant(zt.toInstant(), tz.getID());
     }
 
-    /**
-     * @return ZonedDateTime representing the current date and time zoned to UTC.
+    /** Gets the current date and time in UTC as a ZonedDateTime object.
+     * @return Current date and time in UTC as ZonedDateTime.
      */
     public static ZonedDateTime getUTCDateTimeNow() {
         return ZonedDateTime.ofInstant(ZonedDateTime.now().toInstant(), TimeZone.UTC.getID());

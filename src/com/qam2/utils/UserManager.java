@@ -66,6 +66,14 @@ public abstract class UserManager {
     }
 
     /**
+     * Uses Stream API and method reference to filter User names out of an ArrayList of User objects.
+     * The intermediate stream operation map() takes an implementation of the functional interface Function&lt;T, R&gt;
+     * as a parameter. A method reference User::getUserName was used to implement the single abstract method R apply(T).
+     * The parameter type T was deduced by the stream to be a User object, while return type R is the return type of
+     * getUserName() which is String.
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
      * @return List of all usernames.
      */
     public static ArrayList<String> getUserNameList() {

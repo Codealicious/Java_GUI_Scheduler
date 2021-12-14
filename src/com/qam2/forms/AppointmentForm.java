@@ -9,7 +9,6 @@ import com.qam2.utils.FormUtil;
 import com.qam2.utils.time.TimeUtil;
 import com.qam2.utils.time.TimeZone;
 import com.qam2.utils.UserManager;
-import com.qam2.view.AppointmentView;
 
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -26,7 +25,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 /**
- * Class provides a form for adding or updating an Appointment record.
+ * Provides a form for adding or updating an Appointment record.
  * @author Alex Hanson.
  */
 public class AppointmentForm extends VBox {
@@ -59,27 +58,20 @@ public class AppointmentForm extends VBox {
     private final Appointment appointment;
 
     /**
-     * Creates form in add mode.
+     * Creates a form for adding or updating an Appointment.
      * @param owner The parent window of this form.
+     * @param appointment If not null, an Appointment to be updated.
      */
-    public AppointmentForm(Stage owner) { this(null, owner); }
-
-    /**
-     * Creates form in update mode.
-     * @param appt The Appointment to be updated.
-     * @param owner The parent window of this form.
-     */
-    public AppointmentForm(Appointment appt, Stage owner) {
+    public AppointmentForm(Stage owner, Appointment appointment) {
 
         super(10);
         setPadding(new Insets(50,40,20,40));
 
-        if(appt != null) {
-            appointment = appt;
+        this.appointment = appointment;
+
+        if (appointment != null) {
             creationDate = appointment.getCreateDate();
             createdBy = appointment.getCreatedBy();
-        }else {
-            appointment = null;
         }
 
         configureTextFields();
@@ -93,7 +85,6 @@ public class AppointmentForm extends VBox {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Appointment Form");
         stage.setScene(new Scene(this, 400,650));
-        stage.show();
     }
 
     private void configureTextFields() {
@@ -302,7 +293,7 @@ public class AppointmentForm extends VBox {
 
     private void add() {
 
-        if(AppointmentView.getInstance().add(addAppointment())) {
+        if(AppointmentManager.getInstance().add(addAppointment())) {
             var success = new Alert(Alert.AlertType.INFORMATION);
             success.setHeaderText("SUCCESS!");
             success.setContentText("Appointment successfully created.");
@@ -322,7 +313,7 @@ public class AppointmentForm extends VBox {
         confirm.setContentText("Update Appointment?" + "\t\tID: " + id.getText());
         confirm.showAndWait().ifPresent(response -> {
             if(response == ButtonType.OK) {
-                if(AppointmentView.getInstance().update(updateAppointment())) {
+                if(AppointmentManager.getInstance().update(updateAppointment())) {
                     var success = new Alert(Alert.AlertType.INFORMATION);
                     success.setHeaderText("SUCCESS!");
                     success.setContentText("Appointment Successfully Updated.");
@@ -375,4 +366,9 @@ public class AppointmentForm extends VBox {
                 ContactManager.getContactID(contacts.getValue())
         );
     }
+
+    /**
+     * Displays the form and waits for it to close so that Views in the calling context can be refreshed.
+     */
+    public void display() { stage.showAndWait(); }
 }

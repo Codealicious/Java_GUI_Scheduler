@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Class providing static functions to get Contact data.
+ * Provides static functions to get Contact data.
  * @author Alex Hanson
  */
 public abstract class ContactManager {
@@ -29,6 +29,9 @@ public abstract class ContactManager {
      * as a parameter. A method reference Contact::getContactName was used to implement the single abstract method R apply(T).
      * The parameter type T was deduced by the stream to be a Contact object, while return type R is the return type of
      * getContactName() which is String.
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
      * @return A list of all Contact names.
      */
     public static ArrayList<String> getContactList() {

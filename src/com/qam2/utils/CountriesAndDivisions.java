@@ -34,6 +34,14 @@ public abstract class CountriesAndDivisions {
     }
 
     /**
+     * Uses Stream API and a method reference to filter Country names out of an ArrayList of Country objects.
+     * The intermediate stream operation map() takes an implementation of the functional interface Function&lt;T, R&gt;
+     * as a parameter. A method reference Country::getCountryName was used to implement the single abstract method R apply(T).
+     * The parameter type T was deduced by the stream to be a Country object, while return type R is the return type of
+     * getCountryName() which is String.
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
      * @return A list of Strings for all countries.
      */
     public static ArrayList<String> getCountryList() {
@@ -43,6 +51,18 @@ public abstract class CountriesAndDivisions {
     }
 
     /**
+     * Uses Stream API and lambda expression to filter List of Divisions by a given Country name.
+     * The intermediate stream operation filter() takes an implementation of the functional interface Predicate&lt;T&gt;
+     * as a parameter. A lambda expression was used to implement Predicate&lt;T&gt; anonymously by providing
+     * an implementation of the single abstract method public boolean test(T t1, T t2).
+     * A Method reference was used to filter First-Level Division names out of an ArrayList of Division objects.
+     * The intermediate stream operation map() takes an implementation of the functional interface Function&lt;T, R&gt;
+     * as a parameter. A method reference Division::getDivision was used to implement the single abstract method R apply(T).
+     * The parameter type T was deduced by the stream to be a Division object, while return type R is the return type of
+     * getDivision() which is String.
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
      * @param country Name of a Country.
      * @return A list of Strings for all associated first level divisions.
      */

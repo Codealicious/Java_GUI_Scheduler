@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * Class providing Division record database functionality.
+ * Provides Division record database functionality.
  * All methods are static, class not intended to be instantiated.
  * Facilitates reading all Division records, Division records are read-only
  * @author Alex Hanson

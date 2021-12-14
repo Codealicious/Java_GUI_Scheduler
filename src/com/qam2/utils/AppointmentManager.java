@@ -123,16 +123,20 @@ public class AppointmentManager {
     }
 
     /**
+     * Gets the AppointmentManager singleton.
      * @return Single instance of AppointmentManager.
      */
     public static AppointmentManager getInstance() { return instance == null ? (instance = new AppointmentManager()) : instance; }
 
     /**
      * Gets all Appointments for given year value.
-     * Uses Stream API and lambda expression to filter list of Appointments into a list of those for the given year value.
+     * Uses Stream API and lambda expression to filter list of Appointments by a given year.
      * The intermediate stream operation filter() takes an implementation of the functional interface Predicate&lt;T&gt;
      * as a parameter. A lambda expression was used to implement Predicate&lt;T&gt; anonymously by providing
      * an implementation of the single abstract method public boolean test(T t1, T t2).
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
      * @param appts List of Appointments to filter.
      * @param year Year by which to filter list of Appointments.
      * @return ArrayList of Appointments for the given year value.
@@ -145,6 +149,13 @@ public class AppointmentManager {
 
     /**
      * Gets all Appointments for a given month value.
+     * Uses Stream API and method references to filter list of Appointments by a given month.
+     * The intermediate stream operation filter() takes an implementation of the functional interface Predicate&lt;T&gt;
+     * as a parameter. A lambda expression was used to implement Predicate&lt;T&gt; anonymously by providing
+     * an implementation of the single abstract method public boolean test(T t1, T t2).
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
      * @param appts List of Appointments to filter.
      * @param month Month by which to filter list of Appointments.
      * @return ArrayList of Appointments for the given month value.
@@ -184,6 +195,13 @@ public class AppointmentManager {
 
     /**
      * Gets all Appointments for a given date.
+     * Uses Stream API and lambda expression to filter list of Appointments by a given date.
+     * The intermediate stream operation filter() takes an implementation of the functional interface Predicate&lt;T&gt;
+     * as a parameter. A lambda expression was used to implement Predicate&lt;T&gt; anonymously by providing
+     * an implementation of the single abstract method public boolean test(T t1, T t2).
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
      * @param appts List of Appointments to filter.
      * @param date The date by which to filter the list.
      * @return ArrayList of Appointments for given date.
@@ -307,9 +325,9 @@ public class AppointmentManager {
      * @param c The Customer for whom Appointments are to be deleted.
      * @return True if the Customer's Appointments were successfully deleted, false otherwise.
      */
-    public boolean deleteAllForCustomer(Customer c) {
+    public boolean deleteAllFor(Customer c) {
 
-        if(c != null && AppointmentController.deleteAllFor(c)) {
+        if(AppointmentController.deleteAllFor(c)) {
 
             ArrayList<Appointment> appts = getAppointmentsForCustomer(c.getCustomerID());
 
@@ -324,10 +342,17 @@ public class AppointmentManager {
     /**
      * @return A copy of the Manager's list of all appointments.
      */
-    public ArrayList<Appointment> getAppointments() { return new ArrayList<>(appointments); }
+    public ArrayList<Appointment> getAll() { return new ArrayList<>(appointments); }
 
     /**
      * Gets all Appointments for a given Customer ID.
+     * Uses Stream API and lambda expression to filter list of Appointments by a given Customer ID.
+     * The intermediate stream operation filter() takes an implementation of the functional interface Predicate&lt;T&gt;
+     * as a parameter. A lambda expression was used to implement Predicate&lt;T&gt; anonymously by providing
+     * an implementation of the single abstract method public boolean test(T t1, T t2).
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
      * @param id Customer ID.
      * @return ArrayList of Appointments for the given Customer.
      */
@@ -339,6 +364,13 @@ public class AppointmentManager {
 
     /**
      * Gets all Appointments for a given User ID.
+     * Uses Stream API and lambda expression to filter list of Appointments by a given User ID.
+     * The intermediate stream operation filter() takes an implementation of the functional interface Predicate&lt;T&gt;
+     * as a parameter. A lambda expression was used to implement Predicate&lt;T&gt; anonymously by providing
+     * an implementation of the single abstract method public boolean test(T t1, T t2).
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
      * @param id User ID.
      * @return ArrayList of Appointments for the given User.
      */
@@ -350,6 +382,13 @@ public class AppointmentManager {
 
     /**
      * Gets all Appointments for a given Contact ID.
+     * Uses Stream API and lambda expression to filter list of Appointments by a given Contact ID.
+     * The intermediate stream operation filter() takes an implementation of the functional interface Predicate&lt;T&gt;
+     * as a parameter. A lambda expression was used to implement Predicate&lt;T&gt; anonymously by providing
+     * an implementation of the single abstract method public boolean test(T t1, T t2).
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
      * @param id Contact ID.
      * @return ArrayList of Appointments for the given Contact.
      */
@@ -403,7 +442,14 @@ public class AppointmentManager {
     }
 
     /**
-     * Determines whether the logged in user has an upcoming Appointment based on Appointment reminder value.
+     * Determines whether the logged-in user has an upcoming Appointment based on Appointment reminder value.
+     * Uses Stream API and lambda expressions to filter all Appointments by the current User's ID.
+     * The intermediate stream operation filter() takes an implementation of the functional interface Predicate&lt;T&gt;
+     * as a parameter. A lambda expression was used to implement Predicate&lt;T&gt; anonymously by providing
+     * an implementation of the single abstract method public boolean test(T t1, T t2).
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
      * @return True if the logged-in User has an appointment within the time range specified by reminder value, false otherwise.
      */
     public Appointment upcomingAppointment() {

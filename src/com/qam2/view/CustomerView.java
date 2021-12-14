@@ -10,25 +10,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 /**
- * Singleton class that provides a tabular view of all Customers in the database.
- * Provides tabular view of all Customers and CRUD operations.
+ * Provides tabular view of Customer records.
  * @author Alex Hanson
  */
 public final class CustomerView extends VBox {
 
-    private static CustomerView instance;
-
-    private final CustomerManager manager;
     private final TableView<Customer> table;
+    private final CustomerManager manager;
 
-    {
-        manager = CustomerManager.getInstance();
+    public CustomerView() {
         table = new TableView<>();
-    }
-
-    private CustomerView() {
+        manager = CustomerManager.getInstance();
         buildView();
-        getChildren().add(table);
         refreshView();
     }
 
@@ -79,50 +72,15 @@ public final class CustomerView extends VBox {
         phone.setPrefWidth(110);
 
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        table.getColumns().addAll(id, name, address, postalCode, division, country, phone);
+        table.getColumns().addAll(id,name,address,postalCode,division,country,phone);
+        getChildren().add(table);
     }
 
-    /**
-     * @return Single instance of CustomerView.
-     */
-    public static CustomerView getInstance() {
-        return instance == null ? (instance = new CustomerView()) : instance;
-    }
-
-    /**
-     * @return Currently selected Customer in the tabular view.
-     */
     public Customer getSelected() { return table.getSelectionModel().getSelectedItem(); }
 
-    /**
-     * Updates the view when any change is made to a customer.
-     * Updates to this view will trigger updates to the appointment since it displays associated customer data that
-     * may have changed.
-     * Always returns true so that this method call can easily be added into conditional expressions
-     * dependent on the boolean result of a database controller method.
-     * @return True
-     */
-    public boolean refreshView() {
-        table.setItems(FXCollections.observableList(manager.getCustomers()));
+    public void refreshView() {
+        table.setItems(FXCollections.observableList(manager.getAll()));
         table.refresh();
-        AppointmentView.getInstance().refreshView();
-        return true;
     }
 
-    /**
-     * @param c Customer to add.
-     * @return True if the Customer was added successfully and the view updated, false otherwise.
-     */
-    public boolean add(Customer c) { return manager.add(c) && refreshView(); }
-
-    /**
-     * @param c Customer to update.
-     * @return True if the Customer was successfully updated and the view updated, false otherwise.
-     */
-    public boolean update(Customer c) { return manager.update(c) && refreshView(); }
-
-    /**
-     * @return True if the currently selected Customer was deleted successfully and the view updated, false otherwise.
-     */
-    public boolean delete() { return manager.delete(table.getSelectionModel().getSelectedItem()) && refreshView(); }
 }

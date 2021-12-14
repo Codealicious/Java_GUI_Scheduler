@@ -1,6 +1,6 @@
 # Global Inc. 
 ## Appointment Scheduler
-
+#### Version 2.0
 
 <br>__DESCRIPTION__<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;The application allows users to view, create, update, and delete both customer records and appointments.<br>
@@ -15,12 +15,12 @@ the application dashboard should be displayed.<br><br>
 clicking tabs of the same name, by default the Customer table is displayed.<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;The Add and Update buttons in the bottom right-hand corner launch forms that allow a user to add or update either<br>
 a customer or appointment based on the currently selected tab and table being displayed. If the currently displayed<br>
-table has an item selected the appropriated update form is launched, otherwise the appropriate add form is launched.
+table has an item selected the appropriated update form is launched, otherwise the appropriate add form is launched.<br>
 The Delete button deletes a record based on the currently selected tab and whether or not there is an item selected<br>
 in the currently visible table.<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;The Appoinments table view has additional functionality. Located below the Appointments tab and above the table<br>
-records is a group of toggle selections. The records in the Appointments table can be filtered by all appointments, <br>
-those for the current week, or those for the current month.<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;The Appointments table view has additional functionality. Located below the Appointment table is a group of<br>
+toggle selections. The records in the Appointments table can be filtered by all appointments, those for the <br>
+current week, or those for the current month.<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Above the table views on the left-hand side is a reports button. Clicking this button launchs a window with three<br>
 buttons. The Employee Schedule button launches a window where contacts at the company can be selected from<br>
 a drop-down list; A schedule is displayed for the selected contact. The Customer Schedule button launches a <br>
@@ -28,11 +28,10 @@ similar reports window for customers. The third report is a summary of the total
 the current year as well as the total of appointments by type for each month.<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Finally the Logout button in the upper right-hand of the dashboard takes the user back to the login form.<br><br>
 ---
-<br>__Lambda Requirement__<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;While Lambdas and Method References are used extensively throughout the application. Two examples are noted<br>
-in the AppointmentManager and ContactManger classes. A Method Reference is used to implement a functional <br>
-interface in the ContactManager's getContactList method. And, a Lambda is used to implement a functional interface<br>
-in the AppointmentManger's filterAppointmentsByYear method. More info is included in the javadocs for each class.
+<br>__UPDATES:__&nbsp;Release 2.0<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;* All Lambda and method references used in public facing methods have been documented and explained.<br>
+
+
 ---
 <br>__SPECS:__<br><br>
 &nbsp;&nbsp;Developed Using:<br>
