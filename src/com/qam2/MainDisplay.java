@@ -55,7 +55,10 @@ public final class MainDisplay extends VBox {
         upcomingAppointment();
     }
 
-    private void buildReportsBtn() {
+    /**
+     * Lambda used to configure EventHandler for reports button.
+     */
+    public void buildReportsBtn() {
 
         var records = new Button("Reports");
 
@@ -67,7 +70,10 @@ public final class MainDisplay extends VBox {
 
     }
 
-    private void buildLogoutBtn() {
+    /**
+     * Lambda used to configure EventHandler for logout button.
+     */
+    public void buildLogoutBtn() {
 
         var logout = new Button("Logout");
 
@@ -95,7 +101,10 @@ public final class MainDisplay extends VBox {
         getChildren().add(mainView);
     }
 
-    private void buildCrudButtons() {
+    /**
+     * Lambdas used to implement EventHandler(s) for add, update, and delete buttons.
+     */
+    public void buildCrudButtons() {
 
         var add = new Button("Add");
         var update = new Button("Update");
@@ -143,7 +152,13 @@ public final class MainDisplay extends VBox {
         getChildren().add(LayoutUtil.buildHBoxContainer(10, Pos.TOP_RIGHT, new Insets(15, 0, 0, 0), add, update, delete));
     }
 
-    private void deleteCustomer() {
+    /**
+     * Lambda used to implement Consumer functional interface taken as a parameter to the
+     * ifPresent() method of the Optional object returned by the showAndWait() method of Alert.
+     * The Consumer implementation launches another Alert dialog if the user clicks the OK button.
+     * The dialog displayed is based on the outcome of deleting the Customer.
+     */
+    public void deleteCustomer() {
 
         var cust = cv.getSelected();
 
@@ -170,7 +185,13 @@ public final class MainDisplay extends VBox {
         }
     }
 
-    private void deleteAppointment() {
+    /**
+     * Lambda used to implement Consumer functional interface taken as a parameter to the
+     * ifPresent() method of the Optional object returned by the showAndWait() method of Alert.
+     * The Consumer implementation launches another Alert dialog if the user clicks the OK button.
+     * The dialog displayed is based on the outcome of deleting the Appointment.
+     */
+    public void deleteAppointment() {
 
         var appt = av.getSelected();
 

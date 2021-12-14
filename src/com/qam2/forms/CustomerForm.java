@@ -120,7 +120,10 @@ public class CustomerForm extends VBox {
         }
     }
 
-    private void configureComboBoxes() {
+    /**
+     * Lambdas used to implement EventHandlers for forms ComboBoxes.
+     */
+    public void configureComboBoxes() {
 
         countries = new ComboBox<>();
         divisions = new ComboBox<>();
@@ -156,7 +159,10 @@ public class CustomerForm extends VBox {
         divisions.setItems(FXCollections.observableList(CountriesAndDivisions.getDivisionsForCountry(countries.getValue())));
     }
 
-    private void configureButtons() {
+    /**
+     * Lambdas used to configure EventHandlers for forms add and cancel buttons.
+     */
+    public void configureButtons() {
 
         var add = new Button("Add");
         var cancel = new Button("Cancel");
@@ -234,7 +240,13 @@ public class CustomerForm extends VBox {
         }
     }
 
-    private void update() {
+    /**
+     * Lambda used to implement Consumer functional interface taken as a parameter to the
+     * ifPresent() method of the Optional object returned by the showAndWait() method of Alert.
+     * The Consumer implementation launches another Alert dialog if the user clicks the OK button.
+     * The dialog displayed is based on the outcome of updating the Customer.
+     */
+    public void update() {
 
         var confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setHeaderText("UPDATE");

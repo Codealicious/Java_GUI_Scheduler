@@ -34,7 +34,10 @@ public class ReportSelector extends VBox {
         stage.show();
     }
 
-    private void buildOptions() {
+    /**
+     * Lambdas used to implement EventHandlers for buttons providing various report options.
+     */
+    public void buildOptions() {
 
         var empsch = new Button("Employee Schedule");
         var custsch = new Button("Customer Schedule");

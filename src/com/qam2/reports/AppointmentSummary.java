@@ -43,7 +43,13 @@ public class AppointmentSummary extends VBox {
         stage.show();
     }
 
-    private void buildReport() {
+    /**
+     * The Appointments for each month in the current year are sorted by type of Appointment. This
+     * is achieved by passing a Comparator to ArrayList.sort(). The Comparator is created using the static method
+     * comparing which is passed a method reference Appointment::getType which implements the Function interface
+     * telling the sort method which Appointment field to sort on.
+     */
+    public void buildReport() {
 
         var appointments = AppointmentManager.getInstance().getAppointmentsForCurrentYear();
 

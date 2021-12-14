@@ -6,8 +6,6 @@ import com.qam2.forms.LoginForm;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.util.Locale;
-
 /**
  * Scheduler application entry point
  */

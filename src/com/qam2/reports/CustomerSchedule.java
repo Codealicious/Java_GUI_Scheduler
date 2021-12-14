@@ -47,7 +47,11 @@ public class CustomerSchedule extends VBox {
         stage.show();
     }
 
-    private void buildReport() {
+    /**
+     * Lambda used to implement EventHandler for Customer selection ComboBox.
+     * When a Customer name is selected, their schedule is displayed.
+     */
+    public void buildReport() {
 
         customers = new ComboBox<>(FXCollections.observableList(CustomerManager.getInstance().getCustomerList()));
         getChildren().add(LayoutUtil.buildVBoxContainer(5, Pos.BASELINE_LEFT, new Insets(0,15,0,0), new Label("Select Customer"), customers));
@@ -61,7 +65,17 @@ public class CustomerSchedule extends VBox {
         customers.setOnAction(e-> getSchedule());
     }
 
-    private void getSchedule() {
+    /**
+     * Stream API and Lambdas are used to filter all appointments for a given Customer ID provided by the
+     * selection from the customer drop list or ComboBox.
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
+     * The Appointments are then sorted by start date. This is achieved by passing a Comparator to ArrayList.sort().
+     * The Comparator is created using the static method comparing which is passed a method reference Appointment::getStart
+     * which implements the Function interface telling the sort method which Appointment field to sort on.
+     */
+    public void getSchedule() {
 
         int id = CustomerManager.getInstance().getCustomerID(customers.getValue());
         var appts = AppointmentManager.getInstance().getAppointmentsForCurrentYear();

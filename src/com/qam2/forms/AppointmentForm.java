@@ -126,6 +126,9 @@ public class AppointmentForm extends VBox {
         }
     }
 
+    /**
+     * Lambdas used to implement EventHandler(s) for the forms ComboBoxes and DatePicker.
+     */
     private void configureComboBoxes() {
 
         customers = new ComboBox<>();
@@ -217,7 +220,10 @@ public class AppointmentForm extends VBox {
         }
     }
 
-    private void configureButtons() {
+    /**
+     * Lambdas used to implement EventHandler(s) for the form's add/update and cancel buttons.
+     */
+    public void configureButtons() {
 
         var add = new Button("Add");
         var cancel = new Button("Cancel");
@@ -306,7 +312,13 @@ public class AppointmentForm extends VBox {
         }
     }
 
-    private void update() {
+    /**
+     * Lambda used to implement Consumer functional interface taken as a parameter to the
+     * ifPresent() method of the Optional object returned by the showAndWait() method of Alert.
+     * The Consumer implementation launches another Alert dialog if the user clicks the OK button.
+     * The dialog displayed is based on the outcome of updating the Appointment.
+     */
+    public void update() {
 
         var confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setHeaderText("UPDATE");

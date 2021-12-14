@@ -46,7 +46,11 @@ public class EmployeeSchedule extends VBox {
         stage.show();
     }
 
-    private void buildReport() {
+    /**
+     * Lambda used to implement EventHandler for ComboBox.
+     * When an employee is chosen from the ComboBox list, their schedule is created.
+     */
+    public void buildReport() {
 
         empList = new ComboBox<>(FXCollections.observableList(ContactManager.getContactList()));
         getChildren().add(LayoutUtil.buildVBoxContainer(5, Pos.BASELINE_LEFT, new Insets(0,15,0,0), new Label("Select Employee"), empList));
@@ -60,7 +64,17 @@ public class EmployeeSchedule extends VBox {
         empList.setOnAction(e-> getSchedule());
     }
 
-    private void getSchedule() {
+    /**
+     * Stream API and Lambdas are used to filter all appointments for a given employee ID provided by the
+     * selection from the employee drop list or ComboBox.
+     * The collect terminal operation on the stream uses method references to create an ArrayList and provide
+     * methods for adding each item of the stream to ArrayList as well as combine results from possible parallel
+     * operations on the same stream.
+     * The Appointments are then sorted by start date. This is achieved by passing a Comparator to ArrayList.sort().
+     * The Comparator is created using the static method comparing which is passed a method reference Appointment::getStart
+     * which implements the Function interface telling the sort method which Appointment field to sort on.
+     */
+    public void getSchedule() {
 
         int id = ContactManager.getContactID(empList.getValue());
         var appts = AppointmentManager.getInstance().getAppointmentsForCurrentYear();

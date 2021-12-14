@@ -52,7 +52,10 @@ public final class LoginForm extends VBox {
         stage.show();
     }
 
-    private void buildGrid() {
+    /**
+     * Lambda used to implement EventHandler for login button.
+     */
+    public void buildGrid() {
 
         var grid = new GridPane();
         grid.setAlignment(Pos.CENTER);

@@ -18,7 +18,7 @@ public abstract class LayoutUtil {
     /**
      * Creates common form field layout used throughout application.
      * Lambda expression was used to implement ChangeListener in order to add a
-     * listener to the TextField representing a form field.
+     * listener to the TextField to remove error styles and label if TextField has a value.
      * @param tf TextField .
      * @param prompt Prompt for TextField.
      * @param lbl Associated Label for TextField.
