@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 /**
  * Scheduler application entry point
  */
-//  A minor change!
 public class Main extends Application {
 
     /**
