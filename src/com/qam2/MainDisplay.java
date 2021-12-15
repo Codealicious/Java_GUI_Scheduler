@@ -118,20 +118,20 @@ public final class MainDisplay extends VBox {
 
         add.setOnAction(e -> {
             if(customerTab.isSelected()) {
-                new CustomerForm(stage, null).display();
+                new CustomerForm(stage, null);
                 cv.refreshView();
             }else {
-                new AppointmentForm(stage, null).display();
+                new AppointmentForm(stage, null);
                 av.refreshView();
             }
         });
 
         update.setOnAction(e -> {
             if(customerTab.isSelected() && cv.getSelected() != null) {
-                new CustomerForm(stage, cv.getSelected()).display();
+                new CustomerForm(stage, cv.getSelected());
                 cv.refreshView();
             }else if(av.getSelected() != null) {
-                new AppointmentForm(stage, av.getSelected()).display();
+                new AppointmentForm(stage, av.getSelected());
             }
 
             av.refreshView();

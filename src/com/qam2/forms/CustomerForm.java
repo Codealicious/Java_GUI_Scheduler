@@ -76,6 +76,7 @@ public class CustomerForm extends VBox {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Customer Form");
         stage.setScene(new Scene(this, 400, 460));
+        stage.showAndWait();
     }
 
     private void configureTextFields() {
@@ -298,9 +299,4 @@ public class CustomerForm extends VBox {
                 CountriesAndDivisions.getDivisionID(divisions.getValue())
         );
     }
-
-    /**
-     * Displays the form and waits for it to close so that Views in the calling context can be refreshed.
-     */
-    public void display() { stage.showAndWait(); }
 }

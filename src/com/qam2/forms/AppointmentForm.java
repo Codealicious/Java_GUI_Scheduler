@@ -378,9 +378,4 @@ public class AppointmentForm extends VBox {
                 ContactManager.getContactID(contacts.getValue())
         );
     }
-
-    /**
-     * Displays the form and waits for it to close so that Views in the calling context can be refreshed.
-     */
-    public void display() { stage.showAndWait(); }
 }
