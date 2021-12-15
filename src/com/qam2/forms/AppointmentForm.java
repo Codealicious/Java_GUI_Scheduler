@@ -85,6 +85,7 @@ public class AppointmentForm extends VBox {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Appointment Form");
         stage.setScene(new Scene(this, 400,650));
+        stage.showAndWait();
     }
 
     private void configureTextFields() {
